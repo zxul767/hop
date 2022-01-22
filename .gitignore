@@ -6,3 +6,4 @@ tmp/
 
 *.bak
 *.tdy
+.setup
