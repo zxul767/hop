@@ -6,12 +6,12 @@ sub total_size {
 
     return $total if -f $top;
     my $dir;
-    unless (opendir $dir, $top) {
+    unless ( opendir $dir, $top ) {
         warn "Couldn't open directory $top: $!; skipping.\n";
         return $total;
     }
     my $file;
-    while ($file = readdir $dir) {
+    while ( $file = readdir $dir ) {
         next if $file eq '.' || $file eq '..';
         $total += total_size("$top/$file");
     }
@@ -19,4 +19,8 @@ sub total_size {
     return $total;
 }
 
-say("Total size of ~/Downloads: ", total_size("/home/zxul767/Downloads"), " bytes")
+say(
+    "Total size of ~/Downloads: ",
+    total_size("/home/zxul767/Downloads"),
+    " bytes"
+  )

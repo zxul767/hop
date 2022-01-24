@@ -11,18 +11,22 @@ sub read_config {
 
     open my ($file), $filename or return;
     while (<$file>) {
-        chomp; # trim newlines
-        my ($directive, $rest) = split /\s+/, $_, 2;
+        chomp;    # trim newlines
+        my ( $directive, $rest ) = split /\s+/, $_, 2;
 
-        if ($directive eq 'CHDIR') {
+        if ( $directive eq 'CHDIR' ) {
             chdir($rest) or die "Couldn't chdir to '$rest': $!; aborting";
-        } elsif ($directive eq 'LOGFILE') {
+        }
+        elsif ( $directive eq 'LOGFILE' ) {
             open STDERR, ">>", $rest
-                or die "Coudln't open log file '$rest': $!; aborting";
-        } elsif ($directive eq 'VERBOSITY') {
+              or die "Coudln't open log file '$rest': $!; aborting";
+        }
+        elsif ( $directive eq 'VERBOSITY' ) {
             $VERBOSITY = $rest;
-        } else {
-            die "Unrecognized directive $directive on line $. of $filename; aborting";
+        }
+        else {
+            die
+              "Unknown directive $directive on line $. of $filename; aborting";
         }
     }
     return 1;
@@ -31,4 +35,4 @@ sub read_config {
 say("Reading configuration from settings-01.conf file");
 read_config('./settings-01.conf');
 say("VERBOSITY: $VERBOSITY");
-say("WORKING DIRECTORY: ", getcwd);
+say( "WORKING DIRECTORY: ", getcwd );
